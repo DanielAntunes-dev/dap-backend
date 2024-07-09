@@ -102,13 +102,6 @@ const getAllProduct = asyncHandler(async (req, res) => {
   }
 });
 
-const filterProduct = asyncHandler(async (req, res) => {
-  try {
-  } catch (error) {
-    throw new Error(error);
-  }
-});
-
 module.exports = {
   createProduct,
   getProduct,
