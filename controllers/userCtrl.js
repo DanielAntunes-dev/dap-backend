@@ -101,10 +101,10 @@ const handleRefreshToken = asyncHandler(async (req, res) => {
   const refreshToken = cookie.refreshToken;
 
   const user = await User.findOne({ refreshToken });
-  if (!user) throw new Error("No Refresh token present in dg or not matched");
+  if (!user) throw new Error("Nenhum token de atualização nos cookies");
   jwt.verify(refreshToken, process.env.JWT_SECRET, (err, decoded) => {
     if (err || user.id !== decoded.id) {
-      throw new Error("There is something wrong with refresh token");
+      throw new Error("Há algo errado com o token de atualização");
     }
     const accessToken = generateToken(user?._id);
     res.json({ accessToken });
@@ -114,7 +114,8 @@ const handleRefreshToken = asyncHandler(async (req, res) => {
 // LOGOUT
 const logout = asyncHandler(async (req, res) => {
   const cookie = req.cookies;
-  if (!cookie?.refreshToken) throw new Error("No Refresh Token in Cookies");
+  if (!cookie?.refreshToken)
+    throw new Error("Nenhum token de atualização em cookies");
   const refreshToken = cookie.refreshToken;
   const user = await User.findOne({ refreshToken });
   if (!user) {
@@ -122,7 +123,7 @@ const logout = asyncHandler(async (req, res) => {
       httpOnly: true,
       secure: true,
     });
-    return res.sendStatus(204); // forbidden
+    return res.sendStatus(204);
   }
   await User.findOneAndUpdate(
     { refreshToken },
@@ -134,7 +135,7 @@ const logout = asyncHandler(async (req, res) => {
     httpOnly: true,
     secure: true,
   });
-  res.sendStatus(204); // forbidden
+  res.sendStatus(204);
 });
 
 // SALVAR ENDEREÇO DO USÚARIO
@@ -290,7 +291,7 @@ const forgotPasswordToken = asyncHandler(async (req, res) => {
     const data = {
       to: email,
       text: "Olá, usúario",
-      subject: "Forgot Password Link",
+      subject: "Link para redefinir senha",
       html: resetURL,
     };
     sendEmail(data);

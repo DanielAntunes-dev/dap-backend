@@ -3,10 +3,10 @@ const { default: mongoose } = require("mongoose");
 const dbConnect = () => {
   try {
     const conn = mongoose.connect(process.env.MONGODB_URL);
-    console.log("Database conectado com sucesso!");
+    console.log("Banco de dados conectado com sucesso!");
   } catch (error) {
     throw new Error(error);
-    console.log("Db error");
+    console.log("Erro ao conectar banco de dados");
   }
 };
 
