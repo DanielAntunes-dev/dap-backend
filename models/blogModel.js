@@ -39,11 +39,7 @@ var blogSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
-    image: {
-      type: String,
-      default:
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fneilpatel.com%2Fbr%2Fblog%2Fblog-o-que-e%2F&psig=AOvVaw0X-6XIi_K_fNdHyxg_uNJk&ust=1720562701255000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPiEu9e5mIcDFQAAAAAdAAAAABAE",
-    },
+    images: [],
     author: {
       type: String,
       default: "Admin",

@@ -2,6 +2,12 @@ const Product = require("../models/productModel");
 const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
+const validateMongoDbId = require("../utils/validateMongodbld");
+const {
+  cloudinaryUploadImg,
+  cloudinaryDeleteImg,
+} = require("../utils/cloudinary");
+const fs = require("fs");
 
 const createProduct = asyncHandler(async (req, res) => {
   try {
@@ -140,7 +146,7 @@ const addToWishlist = asyncHandler(async (req, res) => {
   }
 });
 
-const rating = asyncHandler(async (req, res) => {
+const ratings = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const { star, prodId, comment } = req.body;
   try {
@@ -205,5 +211,5 @@ module.exports = {
   updateProduct,
   deleteProduct,
   addToWishlist,
-  rating,
+  ratings,
 };
